@@ -66,6 +66,8 @@ if(WIN32)
         set_target_properties(yuzu-cmd PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:${YUZU_CMD_ENTRY}")
     elseif(MINGW)
         set_target_properties(yuzu-cmd PROPERTIES LINK_FLAGS_RELEASE "-Wl,--subsystem,windows")
+        # video_core's host pacer calls DwmGetCompositionTimingInfo, as for the yuzu target.
+        target_link_libraries(yuzu-cmd PRIVATE dwmapi)
     endif()
 endif()
 
