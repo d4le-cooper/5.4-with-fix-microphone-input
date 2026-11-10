@@ -134,6 +134,12 @@ if (MSVC AND NOT CXX_CLANG)
         /GR-                        # Disable run time type information
     )
 
+    if (NOT ENABLE_WERROR)
+        # This fork builds with ENABLE_WERROR off: keep the warnings MSVC makes errors above
+        # as warnings too (frizti_settings.cpp trips C4459 with cl.exe).
+        add_compile_options(/w14062 /w14189 /w14265 /w14388 /w14389 /w14456 /w14457 /w14458 /w14459 /w14547 /w14549 /w14555 /w14826 /w15038 /w15233 /w15245)
+    endif()
+
     if (NOT CXX_CLANG)
         add_compile_options(
             # Warnings
